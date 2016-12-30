@@ -1,0 +1,14 @@
+powerIter <- function(M,r,beta,epsil,iters = 100){
+  dist <- t(r) %*% r
+  iter <- 0
+  while(dist>epsil){
+    r2 <- beta * M %*% r
+    s <- sum(r2)
+    r2 <- r2 + (1-s)/dim(M)[2]
+    dist <- t(r2-r) %*% (r2-r)
+    r<-r2
+    iter <- iter + 1
+    if(iter >= iters){break}
+  }
+  return(list(r,iter))
+}
